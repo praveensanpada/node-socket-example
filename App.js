@@ -12,13 +12,16 @@ io.on('connection', function (socket) {
 
     setTimeout(function () {
 
-        axios.get('https://api.binance.com/api/v3/exchangeInfo?symbol=BNBBTC')
+        // GET 'https://api.binance.com/api/v3/exchangeInfo?symbols=["BTCUSDT","ETHUSDT","BNBUSDT"]'
+        // GET 'https://api.binance.com/api/v3/exchangeInfo?symbol=BNBBTC'
+
+        axios.get('https://api.binance.com/api/v3/exchangeInfo?symbols=["BTCUSDT","ETHUSDT","BNBUSDT"]')
             .then(function (response) {
                 console.log("Data Send")
                 socket.emit('sendData', { description: 'descriptions part', myData: response.data });
 
             });
-
+            
     }, 4000);
 
     socket.on('disconnect', function () {
@@ -31,6 +34,6 @@ app.get("/getData", function(req, res){
     res.sendFile(__dirname + '/main.html');
 })
 
-http.listen(8085, function () {
-    console.log('listening on *:8085');
+http.listen(8084, function () {
+    console.log('listening on *:8084');
 });
